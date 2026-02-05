@@ -12,34 +12,24 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-            overflow: hidden;
             text-align: center;
             color: #444;
+            padding: 20px;
         }
 
-        .container { position: relative; width: 90%; max-width: 600px; }
+        .container { position: relative; width: 100%; max-width: 500px; }
 
         /* Envelope Styles */
-        .envelope-wrapper { cursor: pointer; transition: transform 0.5s; }
-        .envelope-wrapper:hover { transform: scale(1.05); }
+        #envelope-section { cursor: pointer; }
         .envelope {
-            width: 150px;
-            height: 100px;
-            background-color: #ff5252;
-            margin: 0 auto;
-            position: relative;
-            border-radius: 0 0 5px 5px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: 150px; height: 100px; background-color: #ff5252; margin: 0 auto;
+            position: relative; border-radius: 0 0 5px 5px;
         }
         .envelope::before {
-            content: "";
-            position: absolute;
-            top: -70px;
-            left: 0;
-            border-left: 75px solid transparent;
-            border-right: 75px solid transparent;
+            content: ""; position: absolute; top: -70px; left: 0;
+            border-left: 75px solid transparent; border-right: 75px solid transparent;
             border-bottom: 70px solid #ff5252;
         }
 
@@ -47,128 +37,58 @@
         #question-section, #celebration-section { display: none; }
 
         .btn {
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            margin: 10px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: 0.3s;
-            font-weight: bold;
+            padding: 15px 30px; font-size: 1.2rem; margin: 10px; border: none;
+            border-radius: 50px; cursor: pointer; font-weight: bold;
         }
-        #yes-btn { background-color: #4caf50; color: white; box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3); }
+        #yes-btn { background-color: #4caf50; color: white; }
         #no-btn { background-color: #f44336; color: white; position: absolute; }
 
-        /* Countdown Styles */
+        /* Invitation Card Style */
+        .invitation-card {
+            background: white; padding: 25px; border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .map-container {
+            margin-top: 20px; border-radius: 15px; overflow: hidden;
+            border: 2px solid #ffebee; height: 200px;
+        }
         .countdown-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
+            display: flex; justify-content: center; gap: 10px; margin: 20px 0;
         }
         .time-box {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            min-width: 70px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            background: #fff5f5; padding: 10px; border-radius: 8px; min-width: 60px;
         }
-        .time-box span {
-            display: block;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #ff5252;
-        }
-        .time-box label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            color: #888;
-        }
+        .time-box span { display: block; font-size: 1.2rem; font-weight: bold; color: #ff5252; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div id="envelope-section">
-            <div class="envelope-wrapper" onclick="openEnvelope()">
-                <div class="envelope"></div>
-                <h2 style="margin-top: 20px; color: #ff5252;">A message for Sujata...</h2>
-                <p>Click the heart to open</p>
-            </div>
+        <div id="envelope-section" onclick="openEnvelope()">
+            <div class="envelope"></div>
+            <h2 style="color: #ff5252; margin-top: 20px;">For Sujata</h2>
+            <p>Tap to open</p>
         </div>
 
         <div id="question-section">
-            <h1>I know we're officially engaged...</h1>
-            <h2>But Sujata, will you still be my Valentine?</h2>
+            <h1>Sujata, will you be my Valentine?</h1>
             <button id="yes-btn" class="btn" onclick="celebrate()">YES!</button>
             <button id="no-btn" class="btn" onmouseover="moveButton()">No</button>
         </div>
 
         <div id="celebration-section">
-            <h1>Can't wait! ❤️</h1>
-            <p><strong>B&B Butchers - Houston</strong></p>
-            <p>Friday, Feb 13th @ 8:00 PM</p>
-            
-            <div class="countdown-container" id="timer">
-                <div class="time-box"><span id="days">00</span><label>Days</label></div>
-                <div class="time-box"><span id="hours">00</span><label>Hours</label></div>
-                <div class="time-box"><span id="minutes">00</span><label>Mins</label></div>
-                <div class="time-box"><span id="seconds">00</span><label>Secs</label></div>
-            </div>
-            
-            <h3 style="margin-top: 30px; color: #ff5252;">Counting down the seconds! 💍</h3>
-        </div>
-    </div>
+            <div class="invitation-card">
+                <h1 style="margin-top:0;">It's a Date! ❤️</h1>
+                <p style="font-size: 1.1rem; color: #ff5252; font-weight: bold;">B&B Butchers & Restaurant</p>
+                <p>Friday, Feb 13th @ 8:00 PM</p>
+                
+                <div class="countdown-container" id="timer">
+                    <div class="time-box"><span id="days">0</span><label style="font-size:0.7rem">Days</label></div>
+                    <div class="time-box"><span id="hours">0</span><label style="font-size:0.7rem">Hrs</label></div>
+                    <div class="time-box"><span id="minutes">0</span><label style="font-size:0.7rem">Mins</label></div>
+                    <div class="time-box"><span id="seconds">0</span><label style="font-size:0.7rem">Secs</label></div>
+                </div>
 
-    <script>
-        function openEnvelope() {
-            document.getElementById('envelope-section').style.display = 'none';
-            document.getElementById('question-section').style.display = 'block';
-        }
-
-        function moveButton() {
-            const btn = document.getElementById('no-btn');
-            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
-        }
-
-        function celebrate() {
-            document.getElementById('question-section').style.display = 'none';
-            document.getElementById('celebration-section').style.display = 'block';
-            confetti({
-                particleCount: 150,
-                spread: 70,
-                origin: { y: 0.6 }
-            });
-            startCountdown();
-        }
-
-        function startCountdown() {
-            // Target date: Feb 13, 2026 at 8:00 PM
-            const targetDate = new Date("February 13, 2026 20:00:00").getTime();
-
-            const interval = setInterval(function() {
-                const now = new Date().getTime();
-                const distance = targetDate - now;
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                document.getElementById("days").innerHTML = days;
-                document.getElementById("hours").innerHTML = hours;
-                document.getElementById("minutes").innerHTML = minutes;
-                document.getElementById("seconds").innerHTML = seconds;
-
-                if (distance < 0) {
-                    clearInterval(interval);
-                    document.getElementById("timer").innerHTML = "<h2>It's Time for Dinner! 🥂</h2>";
-                }
-            }, 1000);
-        }
-    </script>
-</body>
-</html>
+                <div class="map-container">
+                    <iframe 
+                        src="
