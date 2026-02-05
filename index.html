@@ -3,185 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Surprise for Sujata</title>
+    <title>For Sujata</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         body {
-            background-color: #1a1a1a;
-            color: #ff4d6d;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background-color: #ffebee;
+            font-family: 'Arial', sans-serif;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             height: 100vh;
             margin: 0;
             overflow: hidden;
             text-align: center;
         }
 
+        .container { position: relative; width: 100%; }
+
         /* Envelope Styles */
-        #envelope-wrapper {
+        .envelope-wrapper { cursor: pointer; transition: transform 0.5s; }
+        .envelope {
+            width: 200px;
+            height: 150px;
+            background-color: #ff5252;
+            margin: 0 auto;
             position: relative;
-            width: 280px;
-            height: 180px;
-            background: #ff4d6d;
-            cursor: pointer;
             border-radius: 0 0 10px 10px;
-            transition: transform 0.5s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
-
-        .flap {
+        .envelope::before {
+            content: "";
             position: absolute;
-            top: 0;
-            width: 0; height: 0;
-            border-left: 140px solid transparent;
-            border-right: 140px solid transparent;
-            border-top: 100px solid #ff1f44;
-            transform-origin: top;
-            transition: transform 0.4s 0.2s;
-            z-index: 3;
+            top: -100px;
+            left: 0;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-bottom: 100px solid #ff5252;
         }
 
-        .envelope-text {
-            color: white;
-            font-weight: bold;
-            font-size: 1.5rem;
-            z-index: 4;
-        }
+        /* Hidden Sections */
+        #question-section, #celebration-section { display: none; }
 
-        #envelope-wrapper.open .flap { transform: rotateX(180deg); }
-        #envelope-wrapper.open { transform: scale(0); opacity: 0; transition: all 0.8s ease-in-out; }
-
-        /* Content Sections */
-        #note-content, #main-content { display: none; width: 100%; padding: 20px; }
-        
         .btn {
             padding: 15px 30px;
             font-size: 1.2rem;
-            font-weight: bold;
-            border-radius: 50px;
+            margin: 10px;
             border: none;
+            border-radius: 25px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: 0.3s;
         }
+        #yes-btn { background-color: #4caf50; color: white; }
+        #no-btn { background-color: #f44336; color: white; position: absolute; }
 
-        /* Question Phase Button Positioning */
-        #main-content .btn { position: absolute; }
-        #yesBtn { background: #ff4d6d; color: white; left: 40%; top: 70%; transform: translate(-50%, -50%); }
-        #noBtn { background: #444; color: #aaa; left: 60%; top: 70%; transform: translate(-50%, -50%); }
-
-        /* Note Phase Button */
-        #nextBtn { background: #ff4d6d; color: white; margin-top: 20px; position: relative; }
-
+        /* Photo Styles */
         .photo-container {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
-            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
         }
-
-        .invite-photo {
-            width: 220px;
-            height: 220px;
+        .couple-photo {
+            width: 200px;
+            height: 250px;
             object-fit: cover;
-            border-radius: 15px;
-            border: 3px solid #ff4d6d;
-            background-color: #333;
-        }
-
-        .note-box {
-            background: #2a2a2a;
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid #ff4d6d;
-            max-width: 500px;
-            margin: auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 5px solid white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
     </style>
 </head>
 <body>
 
-    <div id="envelope-wrapper" onclick="openEnvelope()">
-        <div class="flap"></div>
-        <div class="envelope-text">To: Sujata</div>
-    </div>
-
-    <div id="note-content">
-        <div class="note-box">
-            <p style="font-size: 1.6rem; line-height: 1.5; color: #eee;">
-                "I know we just got engaged, but I feel I still have to ask..."
-            </p>
-            <button class="btn" id="nextBtn" onclick="showQuestion()">Next</button>
+    <div class="container">
+        <div id="envelope-section">
+            <div class="envelope-wrapper" onclick="openEnvelope()">
+                <div class="envelope"></div>
+                <p>Click to open</p>
+            </div>
         </div>
-    </div>
 
-    <div id="main-content">
-        <h1 style="font-size: 3rem;">Will you be my Valentine?</h1>
-        <p style="font-size: 1.5rem;">Please select an option below:</p>
-        <div class="container">
-            <button class="btn" id="yesBtn" onclick="celebrate()">YES</button>
-            <button class="btn" id="noBtn">NO</button>
+        <div id="question-section">
+            <h1>I know we just got engaged, but I feel I still have to ask...</h1>
+            <h2>Will you be my Valentine?</h2>
+            <button id="yes-btn" class="btn" onclick="celebrate()">Yes!</button>
+            <button id="no-btn" class="btn" onmouseover="moveButton()">No</button>
+        </div>
+
+        <div id="celebration-section">
+            <h1>Yay! See you then! ❤️</h1>
+            <p><strong>B&B Butchers - Houston</strong></p>
+            <p>Friday, Feb 13th @ 8:00 PM</p>
+            
+            <div class="photo-container">
+                <img src="IMG_0675.JPG" alt="Us" class="couple-photo">
+                <img src="IMG_2218.JPG" alt="Us" class="couple-photo">
+            </div>
+            <div style="font-size: 50px; margin-top: 20px;">🌹</div>
         </div>
     </div>
 
     <script>
         function openEnvelope() {
-            const wrapper = document.getElementById('envelope-wrapper');
-            const note = document.getElementById('note-content');
-            wrapper.classList.add('open');
-            setTimeout(() => {
-                wrapper.style.display = 'none';
-                note.style.display = 'block';
-            }, 800);
+            document.getElementById('envelope-section').style.display = 'none';
+            document.getElementById('question-section').style.display = 'block';
         }
 
-        function showQuestion() {
-            document.getElementById('note-content').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
+        function moveButton() {
+            const btn = document.getElementById('no-btn');
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
         }
-
-        const noBtn = document.getElementById('noBtn');
-        noBtn.addEventListener('mouseover', () => {
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-            noBtn.style.position = 'fixed';
-            noBtn.style.left = x + 'px';
-            noBtn.style.top = y + 'px';
-        });
 
         function celebrate() {
-            document.body.innerHTML = `
-                <div style="text-align: center; padding: 40px; border: 2px solid #ff4d6d; border-radius: 20px; background: #2a2a2a; max-width: 85%; margin: auto;">
-                    <h1 style="font-size: 2.5rem; color: #ff4d6d;">It's a Date! ❤️</h1>
-                    
-                    <div class="photo-container">
-                        <img src="IMG_0675.JPG" class="invite-photo" alt="Photo 1">
-                        <img src="IMG_2218.JPG" class="invite-photo" alt="Photo 2">
-                    </div>
-
-                    <p style="font-size: 1.2rem; color: #ccc;">
-                        <strong>B&B Butchers - Houston</strong><br>
-                        Friday, Feb 13th @ 8:00 PM
-                    </p>
-                    <div style="font-size: 3rem; margin: 15px 0;">🥩 🍷 🌹</div>
-                    <p style="color: #aaa; font-style: italic;">(Happy Early Valentine's my Love!)</p>
-                </div>
-            `;
-
+            document.getElementById('question-section').style.display = 'none';
+            document.getElementById('celebration-section').style.display = 'block';
             confetti({
                 particleCount: 150,
                 spread: 70,
-                origin: { y: 0.6 },
-                colors: ['#ff4d6d', '#ffffff', '#ff8fa3']
+                origin: { y: 0.6 }
             });
         }
     </script>
 </body>
-
 </html>
