@@ -12,25 +12,34 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
             margin: 0;
+            overflow: hidden;
             text-align: center;
             color: #444;
-            padding: 20px;
         }
 
-        .container { position: relative; width: 100%; max-width: 500px; }
+        .container { position: relative; width: 90%; max-width: 600px; }
 
         /* Envelope Styles */
-        #envelope-section { cursor: pointer; transition: transform 0.3s; }
-        #envelope-section:hover { transform: scale(1.05); }
+        .envelope-wrapper { cursor: pointer; transition: transform 0.5s; }
+        .envelope-wrapper:hover { transform: scale(1.05); }
         .envelope {
-            width: 150px; height: 100px; background-color: #ff5252; margin: 0 auto;
-            position: relative; border-radius: 0 0 5px 5px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 150px;
+            height: 100px;
+            background-color: #ff5252;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 0 0 5px 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         .envelope::before {
-            content: ""; position: absolute; top: -70px; left: 0;
-            border-left: 75px solid transparent; border-right: 75px solid transparent;
+            content: "";
+            position: absolute;
+            top: -70px;
+            left: 0;
+            border-left: 75px solid transparent;
+            border-right: 75px solid transparent;
             border-bottom: 70px solid #ff5252;
         }
 
@@ -38,81 +47,76 @@
         #question-section, #celebration-section { display: none; }
 
         .btn {
-            padding: 15px 30px; font-size: 1.2rem; margin: 10px; border: none;
-            border-radius: 50px; cursor: pointer; font-weight: bold; transition: 0.3s;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            margin: 10px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
         }
-        #yes-btn { background-color: #4caf50; color: white; box-shadow: 0 4px 10px rgba(76,175,80,0.3); }
-        #no-btn { background-color: #f44336; color: white; position: absolute; z-index: 10; }
+        #yes-btn { background-color: #4caf50; color: white; box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3); }
+        #no-btn { background-color: #f44336; color: white; position: absolute; }
 
-        /* Invitation Card Style */
-        .invitation-card {
-            background: white; padding: 25px; border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        .map-wrapper {
-            margin-top: 20px; border-radius: 15px; overflow: hidden;
-            border: 1px solid #ddd; height: 250px; position: relative;
-        }
+        /* Countdown Styles */
         .countdown-container {
-            display: flex; justify-content: center; gap: 10px; margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
         }
         .time-box {
-            background: #fff5f5; padding: 10px; border-radius: 8px; min-width: 60px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            min-width: 70px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
-        .time-box span { display: block; font-size: 1.2rem; font-weight: bold; color: #ff5252; }
-        
-        .maps-link-btn {
-            display: inline-block; margin-top: 15px; padding: 10px 20px;
-            background-color: #4285F4; color: white; text-decoration: none;
-            border-radius: 5px; font-size: 0.9rem; font-weight: bold;
+        .time-box span {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff5252;
+        }
+        .time-box label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #888;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div id="envelope-section" onclick="openEnvelope()">
-            <div class="envelope"></div>
-            <h2 style="color: #ff5252; margin-top: 20px;">For Sujata</h2>
-            <p>Click to open your invitation</p>
+        <div id="envelope-section">
+            <div class="envelope-wrapper" onclick="openEnvelope()">
+                <div class="envelope"></div>
+                <h2 style="margin-top: 20px; color: #ff5252;">A message for Sujata...</h2>
+                <p>Click the heart to open</p>
+            </div>
         </div>
 
         <div id="question-section">
-            <h1>I know we're engaged...</h1>
+            <h1>I know we're officially engaged...</h1>
             <h2>But Sujata, will you still be my Valentine?</h2>
             <button id="yes-btn" class="btn" onclick="celebrate()">YES!</button>
             <button id="no-btn" class="btn" onmouseover="moveButton()">No</button>
         </div>
 
         <div id="celebration-section">
-            <div class="invitation-card">
-                <h1 style="margin-top:0;">It's a Date! ❤️</h1>
-                <p style="font-size: 1.1rem; color: #ff5252; font-weight: bold; margin-bottom: 5px;">B&B Butchers & Restaurant</p>
-                <p style="margin-top: 0;">Friday, Feb 13th @ 8:00 PM</p>
-                
-                <div class="countdown-container" id="timer">
-                    <div class="time-box"><span id="days">0</span><label style="font-size:0.7rem">Days</label></div>
-                    <div class="time-box"><span id="hours">0</span><label style="font-size:0.7rem">Hrs</label></div>
-                    <div class="time-box"><span id="minutes">0</span><label style="font-size:0.7rem">Mins</label></div>
-                    <div class="time-box"><span id="seconds">0</span><label style="font-size:0.7rem">Secs</label></div>
-                </div>
-
-                <div class="map-wrapper">
-                    <iframe 
-                        width="100%" height="100%" frameborder="0" style="border:0"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3463.36873539091!2d-95.38139562413564!3d29.76694607506307!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640bf38f451e1db%3A0xc3c6f4818d6e3f3c!2sB%26B%20Butchers%20%26%20Restaurant!5e0!3m2!1sen!2sus!4v1707090000000!5m2!1sen!2sus"
-                        allowfullscreen>
-                    </iframe>
-                </div>
-                
-                <a href="https://maps.app.goo.gl/K1D2T6f7j6m8xH6o9" target="_blank" class="maps-link-btn">
-                    📍 Open in Google Maps
-                </a>
-
-                <p style="font-size: 0.8rem; margin-top: 20px; color: #888; font-style: italic;">
-                    Reservation is under "Nicholas" 💍
-                </p>
+            <h1>Can't wait! ❤️</h1>
+            <p><strong>B&B Butchers - Houston</strong></p>
+            <p>Friday, Feb 13th @ 8:00 PM</p>
+            
+            <div class="countdown-container" id="timer">
+                <div class="time-box"><span id="days">00</span><label>Days</label></div>
+                <div class="time-box"><span id="hours">00</span><label>Hours</label></div>
+                <div class="time-box"><span id="minutes">00</span><label>Mins</label></div>
+                <div class="time-box"><span id="seconds">00</span><label>Secs</label></div>
             </div>
+            
+            <h3 style="margin-top: 30px; color: #ff5252;">Counting down the seconds! 💍</h3>
         </div>
     </div>
 
@@ -142,15 +146,27 @@
         }
 
         function startCountdown() {
-            const target = new Date("February 13, 2026 20:00:00").getTime();
-            setInterval(function() {
+            // Target date: Feb 13, 2026 at 8:00 PM
+            const targetDate = new Date("February 13, 2026 20:00:00").getTime();
+
+            const interval = setInterval(function() {
                 const now = new Date().getTime();
-                const diff = target - now;
-                if (diff < 0) return;
-                document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-                document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                document.getElementById("minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                document.getElementById("seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000);
+                const distance = targetDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("days").innerHTML = days;
+                document.getElementById("hours").innerHTML = hours;
+                document.getElementById("minutes").innerHTML = minutes;
+                document.getElementById("seconds").innerHTML = seconds;
+
+                if (distance < 0) {
+                    clearInterval(interval);
+                    document.getElementById("timer").innerHTML = "<h2>It's Time for Dinner! 🥂</h2>";
+                }
             }, 1000);
         }
     </script>
